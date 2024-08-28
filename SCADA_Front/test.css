@@ -1,0 +1,59 @@
+.container {
+    position: relative;
+    height: 300px;
+    width: 400px;
+    background-color: #ccc;
+    /* Just to mark the container */
+}
+
+.tank {
+    position: absolute;
+    top: 0;
+    width: 100px;
+    height: 200px;
+    background-color: silver;
+    /* Tank color */
+}
+
+#tank1 {
+    left: 50px;
+}
+
+#tank2 {
+    left: 250px;
+}
+
+.pipe {
+    position: absolute;
+    bottom: 0;
+    height: 50px;
+    width: 20px;
+    background-color: blue;
+    /* Pipe color */
+    left: 40px;
+    /* Centering the pipe under the tank */
+}
+
+.pump {
+    position: absolute;
+    bottom: 0;
+    height: 50px;
+    width: 50px;
+    background-color: gray;
+    /* Pump color */
+    left: 170px;
+    /* Positioning the pump in the middle */
+}
+
+.pipe {
+    width: 20px;
+    /* adjust the width of the pipe */
+    height: 200px;
+    /* adjust the height of the pipe */
+    background-color: red;
+    /* pipe color */
+    border-radius: 10px;
+    /* rounded corners */
+    position: relative;
+}
+
