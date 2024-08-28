@@ -1,0 +1,51 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.3.2'
+    id 'io.spring.dependency-management' version '1.1.6'
+}
+
+group = 'az.spring.demo'
+version = '0.0.1-SNAPSHOT'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+    flatDir {
+        dirs 'lib'
+    }
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    implementation 'io.projectreactor.netty:reactor-netty'
+    implementation 'com.ghgande:j2mod:2.6.4'
+    implementation files('lib/EasyModbusJava.jar')
+    implementation 'org.springframework.boot:spring-boot-starter-websocket'
+//    implementation name: 'AzTrustCrypto_java17'
+//    implementation name: 'bcmail-jdk15on-1.60'
+//    implementation name: 'bcpkix-jdk15on-1.60'
+//    implementation name: 'bcprov-jdk15on-1.60'
+//    implementation name: 'common-lang3'
+//    implementation name: 'dom4j'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
