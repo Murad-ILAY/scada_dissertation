@@ -25,9 +25,9 @@ public class MainController {
     @GetMapping
     public boolean [] sendCashboxUpdates() {
         boolean []barray = new boolean[2];
-        boolean b = modbusClientService.readData(modbusClient);// Məsələn, 1 ID ilə kassa məbləğini alır
-        barray[0] = b;
-        barray[1] = b;
+//        boolean b = modbusClientService.readData(modbusClient);// Məsələn, 1 ID ilə kassa məbləğini alır
+//        barray[0] = b;
+//        barray[1] = b;
         System.out.println("elekber: " + barray[0] + " " + barray[1]);
 
         //template.convertAndSend("/topic/cashbox", barray);

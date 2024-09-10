@@ -1,26 +1,62 @@
-package az.spring.demo.scada.services;
+package az.spring.demo.scada.services.impl;
 
-import az.spring.demo.scada.config.ModbusConfig;
 import az.spring.demo.scada.config.ModbusConnectionManager;
 import az.spring.demo.scada.model.FlameDetector;
-import de.re.easymodbus.modbusclient.ModbusClient;
+import az.spring.demo.scada.model.Device;
+import az.spring.demo.scada.repository.FlameDetectorRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.BitSet;
+import java.util.List;
 
 @Service
-@ComponentScan
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
-public class FlameDetectorService {
+//@ComponentScan
+@RequiredArgsConstructor
+public class FlameDetectorServiceImpl {
+
+    @Autowired
+    private final FlameDetectorRepository flameDetectorRepository;
+
+
+    public List<FlameDetector> getAllUsers() {
+        return flameDetectorRepository.findAll();
+    }
+
+    public FlameDetector saveFlameDetector(FlameDetector flameDetector) {
+        return flameDetectorRepository.save(flameDetector);
+    }
+
+    public FlameDetector getFlameDetectorById(long id) {
+        return flameDetectorRepository.findById(id).orElse(null);
+    }
+
+
+
+
+
+
+
+
+
 
 //    private final FlameDetector flameDetector;
     private final ModbusConnectionManager modbusConnectionManager;
+   private static ArrayList<FlameDetector> flameDetectors = new ArrayList<>();
+
+
+//    public static ArrayList<FlameDetector> createAndGetFlameDetectors(){
+//        if(flameDetectors.size()!=4) {
+//            for (int i = 0; i < 4; i++) {
+//                String tagName = "Btf-" + (i + 1);
+//                FlameDetector fd = new FlameDetector(1,"", 0, 0, i, false);
+//                flameDetectors.add(fd);
+//            }
+//        }
+//        return flameDetectors;
+//    }
 
 
 
@@ -59,7 +95,7 @@ public class FlameDetectorService {
         FlameDetector [] flameDetectors = new FlameDetector[4];
             BitSet bs = BitSet.valueOf(new long[]{registerValues[0]});
         for (int i = 0; i < flameDetectors.length; i++) {
-            flameDetectors[i]=new FlameDetector("Btf-"+i,0,registerValues[0],i,bs.get(i));
+//            flameDetectors[i]=new FlameDetector(1,"Btf-"+i,0,registerValues[0],i,bs.get(i));
             System.out.println(flameDetectors[i]);
 
         }

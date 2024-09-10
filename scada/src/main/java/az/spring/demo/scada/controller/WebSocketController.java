@@ -13,16 +13,19 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 
 @RequiredArgsConstructor
 @Controller
 public class WebSocketController {
 
-    private final ModbusClientService modbusClientService;
-    ModbusClient modbusClient;
 
-    private final SimpMessagingTemplate template;
+    private final ModbusClientService modbusClientService;
+
+
+
+//    private final SimpMessagingTemplate template;
 
 
     // Method to handle messages sent from clients to "/app/message"
@@ -40,15 +43,24 @@ public class WebSocketController {
 //    }
     @MessageMapping("/hello")
     @SendTo("/topic/cashbox")
-    public Map<String, boolean []> send() {
-        boolean []barray = new boolean[2];
-       boolean b = modbusClientService.readData(modbusClient);// Məsələn, 1 ID ilə kassa məbləğini alır
-        System.out.println("bur==it address is: "+b);
-       barray[0] = b;
-        barray[1] = true;
-        System.out.println("esrf: " + barray);
-        return Collections.singletonMap("message", barray);
+    @Scheduled(fixedRate = 3000)
+    public Map<String, boolean [][]> send() {
+       boolean [][] result = modbusClientService.readDataFromAllFlameDetectors();
+//       for(boolean b: result){
+//           System.out.println("I am here brooo " + b);
+//       }
+
+        return Collections.singletonMap("messages", result);
     }
+
+//    @MessageMapping("/hello")
+//    @SendTo("/topic/cashbox")
+//    public Map<String, List<FlameDetector>> send() {
+//        boolean []barray = new boolean[2];
+//        List<FlameDetector> result = modbusClientService.updateFlameDetectorsValueContinuously();// Məsələn, 1 ID ilə kassa məbləğini alır
+//        return Collections.singletonMap("messge", result);
+//    }
+
 
 
 //    @MessageExceptionHandler("/chat")
